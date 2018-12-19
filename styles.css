@@ -399,6 +399,8 @@ html, body {
   width: 50%;
   text-align: right;
   font-size: 1.6rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
 }
 
 .forecast__value--1 {
