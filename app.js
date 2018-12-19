@@ -62,7 +62,7 @@ function loopUVInfoLi(d) {
     var pollenAvg = 0;
     if(d.AirAndPollen[i].Name == "UVIndex") {
       labelStr = "UV Index";
-      valueStr = d.AirAndPollen[i].Category;
+      valueStr = d.AirAndPollen[i].CategoryValue;
       infoUl.appendChild(createInfoLiElements(valueStr, d.AirAndPollen[i].CategoryValue, labelStr));
     }
   } 
@@ -160,10 +160,13 @@ function createUVForecastList(data) {
   data.DailyForecasts.forEach(function(d) {
     dayList.appendChild(createUVLiElement(d));
     dayList.classList.add("forecast");
-    
   });
-  
-  document.querySelector("#UVindex").appendChild(dayList);;
+
+  if(document.querySelector('#UVIndex').children.length > 1) {
+    document.querySelector('#UVIndex').removeChild(document.querySelector('#UVIndex').lastChild);
+  }
+
+  document.querySelector("#UVIndex").appendChild(dayList);
 }
 
 document.querySelector(".form").addEventListener("submit", function(e) {
@@ -224,7 +227,6 @@ function createAirMessage(pd, ad) {
   var airMessageContainer = document.createElement('DIV');
   airMessageContainer.classList.add("message__container");
   airMessageContainer.id = "AirMessageContainer";
-  document.getElementById('AirQuality').appendChild(airMessageContainer);
 
   // Find the total of pollen levels and the average
   /*TURN THIS INTO ITS OWN FUNCTION*/
@@ -281,6 +283,14 @@ function createAirMessage(pd, ad) {
   airConditionElement.innerHTML = airConditionString;
   airMessageContainer.appendChild(airConditionElement);
   // airMessageContainer.appendChild(airMessageElement);
+  if(document.getElementById('AirMessageContainer')) {
+    while(document.getElementById('AirMessageContainer').firstChild) {
+      document.getElementById('AirMessageContainer').removeChild(document.getElementById('AirMessageContainer').firstChild);
+    }
+  } else {
+    document.getElementById('AirQuality').appendChild(airMessageContainer);
+  }
+
   document.getElementById('AirMessageContainer').appendChild(airConditionElement);
   document.getElementById('AirMessageContainer').appendChild(airMessageElement);
 }
@@ -293,7 +303,6 @@ function createUVMessage(uvData) {
   var uvMessageContainer = document.createElement('DIV');
   uvMessageContainer.classList.add("message__container");
   uvMessageContainer.id = "UVMessageContainer";
-  document.getElementById("UVIndex").appendChild(uvMessageContainer);
 
   var uvString = "";
 
@@ -333,15 +342,18 @@ function createUVMessage(uvData) {
   var uvMessageNode = document.createTextNode(uvMessageString);
   uvMessageElement.appendChild(uvMessageNode);
   uvMessageElement.classList.add("card__message");
-  // conditionElement.appendChild(conditionNode);
   uvConditionElement.innerHTML = uvConditionString;
   uvConditionElement.classList.add("card__condition");
+  if(document.getElementById('UVMessageContainer')) {
+    while(document.getElementById('UVMessageContainer').firstChild) {
+      document.getElementById('UVMessageContainer').removeChild(document.getElementById('UVMessageContainer').firstChild);
+    }
+  } else {
+    document.getElementById('UVIndex').appendChild(uvMessageContainer);
+  }
   document.getElementById('UVMessageContainer').appendChild(uvConditionElement);
   document.getElementById('UVMessageContainer').appendChild(uvMessageElement);
-  // if(document.querySelector(".card__message") && document.querySelector(".card__message")) {
-  //   document.querySelector(".card__message").parentNode.removeChild(document.querySelector(".card__message"));
-  //   document.querySelector(".card__condition").parentNode.removeChild(document.querySelector(".card__condition"));
-  // }
+  console.log('hello wolrd world world');
 }
 
 
@@ -355,6 +367,9 @@ function createLocationElement(city, state) {
   locationElement.classList.add("location");
 
   console.log(locationStr);
-
-  document.querySelector(".container").appendChild(locationElement);
+  if(document.querySelector(".location")) {
+    document.querySelector(".location").textContent = locationStr;
+  } else {
+    document.querySelector(".container").appendChild(locationElement);
+  }
 }
