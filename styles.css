@@ -400,15 +400,12 @@ html, body {
   margin: 3px 6px;
   width: 50%;
   text-align: right;
-<<<<<<< HEAD
   font-size: 2rem;
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
   font-weight: bold;
-=======
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
->>>>>>> deb0e266b2dc69d8fe6313a16c6974f881d094db
 }
 
 .forecast__value--1 {
